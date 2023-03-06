@@ -31,7 +31,7 @@ const opts = require("minimist")(process.argv.slice(2), {
     }
     if (opts.message && opts.time) {
         const time = new Date().setHours(opts.time.split(":")[0], opts.time.split(":")[1], 0, 0) - new Date().getTime()
-        spawn(
+        const subprocess=spawn(
             'sh',
             [
                 '-c',
@@ -53,6 +53,10 @@ const opts = require("minimist")(process.argv.slice(2), {
                 stdio: ['inherit', 'inherit', 'inherit']
             }
         );
+        setTimeout(() => {
+            subprocess.unref()
+            process.exit(0)
+        },10)
 
     }
 })
