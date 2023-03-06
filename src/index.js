@@ -47,7 +47,9 @@ const opts = require("minimist")(process.argv.slice(2), {
                             stdio: ['inherit', 'inherit', 'inherit']
                         }
                     );
-                    subprocess.unref()
+                    setTimeout(() => {
+                        subprocess.unref() 
+                    },10)
                     }, ${time})"`
             ], {
                 detached: true,
