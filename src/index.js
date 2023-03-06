@@ -32,23 +32,33 @@ const opts = require("minimist")(process.argv.slice(2), {
         const {spawn} = require("child_process")
         const time = new Date().setHours(opts.time.split(":")[0], opts.time.split(":")[1], 0, 0) - new Date().getTime()
         const path = require('path')
+
+        const subprocess = spawn(
+            'sh',
+            [
+                '-c',
+                `node -e "setTimeout(() => {
+                    const {spawn} = require('child_process')
+                    const subprocess = spawn(
+                        'bash',
+                        [
+                            '-c',
+                            'git add . && git commit -m \\"${(opts.message)}\\"${opts.push ? ' && git push' : ''}',
+                        ], {
+                            stdio: ['inherit', 'inherit', 'inherit']
+                        }
+                    );
+                    }, ${time})"`
+            ], {
+                stdio: ['inherit', 'inherit', 'inherit']
+            }
+        );
         setTimeout(() => {
-            const subprocess = spawn(
-                'bash',
-                [
-                    '-c',
-                    `git add . && git commit -m "${opts.message}"${opts.push ? ' && git push' : ''}`,
-                ], {
-                    detached: true,
-                    stdio: ['inherit', 'inherit', 'inherit']
-                }
-            );
-        }, time)
-
+            subprocess.kill(); // Does not terminate the Node.js process in the shell.
+        }, 2000);
     }
-
-
-})().catch((err) =>
+})
+().catch((err) =>
     console.error(
         [red(opts.verbose ? err.trace : String(err)), os.EOL, ...usage].join(os.EOL)
     )
