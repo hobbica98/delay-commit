@@ -38,7 +38,8 @@ const opts = require("minimist")(process.argv.slice(2), {
                 [
                     '-c',
                     `git add . && git commit -m "${opts.message}"${opts.push ? ' && git push' : ''}`,
-                ], {detached: true,
+                ], {
+                    detached: true,
                     stdio: ['inherit', 'inherit', 'inherit']
                 }
             );
