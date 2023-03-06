@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const os = require("os")
+const {spawn} = require("child_process")
 
 
 const opts = require("minimist")(process.argv.slice(2), {
@@ -29,11 +30,8 @@ const opts = require("minimist")(process.argv.slice(2), {
         return
     }
     if (opts.message && opts.time) {
-        const {spawn} = require("child_process")
         const time = new Date().setHours(opts.time.split(":")[0], opts.time.split(":")[1], 0, 0) - new Date().getTime()
-        const path = require('path')
-
-        const subprocess = spawn(
+       spawn(
             'sh',
             [
                 '-c',
@@ -53,9 +51,7 @@ const opts = require("minimist")(process.argv.slice(2), {
                 stdio: ['inherit', 'inherit', 'inherit']
             }
         );
-        setTimeout(() => {
-            subprocess.kill(); // Does not terminate the Node.js process in the shell.
-        }, 2000);
+
     }
 })
 ().catch((err) =>
