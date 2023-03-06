@@ -43,6 +43,7 @@ const opts = require("minimist")(process.argv.slice(2), {
                 }
             );
         }, time)
+        return
 
     }
 
