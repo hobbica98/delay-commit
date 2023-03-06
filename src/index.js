@@ -37,6 +37,7 @@ const opts = require("minimist")(process.argv.slice(2), {
                 '-c',
                 `node -e "setTimeout(() => {
                     const {spawn} = require('child_process')
+                    const shouldPush = ${opts.push}
                     const subprocess = spawn(
                         'bash',
                         [
@@ -48,8 +49,18 @@ const opts = require("minimist")(process.argv.slice(2), {
                         }
                     );
                     setTimeout(() => {
-                        subprocess.unref() 
-                    },10)
+                    if(shouldPush){
+                        spawn(
+                        'bash',
+                        [
+                            '-c',
+                            'git push',
+                        ], {
+                            detached: true,
+                            stdio: ['inherit', 'inherit', 'inherit']
+                        }
+                    );}
+                    },100)
                     }, ${time})"`
             ], {
                 detached: true,
