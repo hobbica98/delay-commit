@@ -4,9 +4,9 @@ const os = require("os")
 
 
 const opts = require("minimist")(process.argv.slice(2), {
-    boolean: ["help", "version", "push"],
-    alias: { help: "h", message: "m", version: "v", time: "t" , push: "p"},
-    string: ["message", "time"],
+        boolean: ["help", "version", "push"],
+        alias: {help: "h", message: "m", version: "v", time: "t", push: "p"},
+        string: ["message", "time"],
     })
 
 
@@ -30,23 +30,19 @@ const opts = require("minimist")(process.argv.slice(2), {
         return
     }
     if (opts.message && opts.time) {
-        //spawn terminal at specific time ad exec command
-        console.log('aaaa')
-        const { spawn } = require("child_process")
+        const {spawn} = require("child_process")
         const time = new Date().setHours(opts.time.split(":")[0], opts.time.split(":")[1], 0, 0) - new Date().getTime()
-        console.log(time)
         const path = require('path')
-        console.log(path.resolve(__dirname))
         setTimeout(() => {
-        const subprocess = spawn(
-            'sh',
-            [
-                '-c',
-                `git add . && git commit -m "${opts.message}"${opts.push ? ' && git push' : ''}`,
-            ], {
-                stdio: ['inherit', 'inherit', 'inherit']
-            }
-        );
+            const subprocess = spawn(
+                'sh',
+                [
+                    '-c',
+                    `git add . && git commit -m "${opts.message}"${opts.push ? ' && git push' : ''}`,
+                ], {
+                    stdio: ['inherit', 'inherit', 'inherit']
+                }
+            );
         }, time)
 
     }
