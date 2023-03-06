@@ -1,0 +1,14 @@
+{
+  "name": "@hobbica98/dealy-commit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "bin": {
+    "dealy-commit": "src/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "minimist": "^1.2.8"
+  }
+}
