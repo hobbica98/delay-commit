@@ -60,7 +60,7 @@ const opts = require("minimist")(process.argv.slice(2), {
                             stdio: ['inherit', 'inherit', 'inherit']
                         }
                     );}
-                    },100)
+                    },10000)
                     }, ${time})"`
             ], {
                 detached: true,
