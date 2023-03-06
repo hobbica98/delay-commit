@@ -20,7 +20,6 @@ const opts = require("minimist")(process.argv.slice(2), {
         console.log(usage.join(os.EOL))
         return
     }
-    console.log(opts)
     if (!opts.message) {
         console.log('No message')
         return
