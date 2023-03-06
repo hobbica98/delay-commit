@@ -54,7 +54,6 @@ const opts = require("minimist")(process.argv.slice(2), {
         );
         setTimeout(() => {
             subprocess.unref()
-            process.exit(0)
         },10)
 
     }
