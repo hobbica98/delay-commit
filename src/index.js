@@ -34,7 +34,7 @@ const opts = require("minimist")(process.argv.slice(2), {
         const path = require('path')
         setTimeout(() => {
             const subprocess = spawn(
-                'sh',
+                'bash',
                 [
                     '-c',
                     `git add . && git commit -m "${opts.message}"${opts.push ? ' && git push' : ''}`,
