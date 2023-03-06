@@ -31,7 +31,7 @@ const opts = require("minimist")(process.argv.slice(2), {
     }
     if (opts.message && opts.time) {
         const time = new Date().setHours(opts.time.split(":")[0], opts.time.split(":")[1], 0, 0) - new Date().getTime()
-       spawn(
+        spawn(
             'sh',
             [
                 '-c',
@@ -48,6 +48,7 @@ const opts = require("minimist")(process.argv.slice(2), {
                     );
                     }, ${time})"`
             ], {
+                detached: true,
                 stdio: ['inherit', 'inherit', 'inherit']
             }
         );
